@@ -5,7 +5,6 @@ import reset from "styled-reset";
 import Layout from "./components/layout";
 import LoadingScreen from "./components/loading-screen";
 import ProtectedRoutes from "./components/protected-routes";
-import { auth } from "./firebase";
 import CreateAccount from "./routes/create-account";
 import Home from "./routes/home";
 import Login from "./routes/login";
@@ -64,22 +63,21 @@ const GlobalStyles = createGlobalStyle`
   `;
 
 function App() {
-  const [isLoading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   // 파이어베이스가 준비될 때까지 기다림
-  const init = async () => {
-    await auth.authStateReady();
-    setTimeout(() => setLoading(false), 2000);
-  };
+  const init = async() => {
+    setTimeout(() => setIsLoading(false), 2000);
+  }
 
-  useEffect(() => {
+  useEffect(()=> {
     init();
-  }, []);
+  }, [])
 
   return (
     <Wrapper>
       <GlobalStyles />
-      {isLoading ? <LoadingScreen /> : <RouterProvider router={router} />}
+      {isLoading ? <LoadingScreen /> : {isLoading ? <LoadingScreen /> : <RouterProvider router={router} />}}
     </Wrapper>
   );
 }
