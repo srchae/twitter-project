@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { FirebaseError } from "@firebase/util";
-import { useNavigate } from "react-router";
 import { signInWithEmailAndPassword } from "@firebase/auth";
-import { auth } from "../firebase";
-import { Error, Form, Input, InputButton, Switcher, Title, Wrapper, StyledLink } from "../components/styled/styled";
+import { FirebaseError } from "@firebase/util";
+import { useState } from "react";
+import { useNavigate } from "react-router";
 import GithubButton from "../components/github-btn";
+import { Error, Form, Input, InputButton, StyledLink, Switcher, Title, Wrapper } from "../components/styled/styled";
+import { auth } from "../firebase";
 
 
 export default function Login() {
