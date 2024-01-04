@@ -4,7 +4,7 @@ import Home from "./routes/home";
 import Profile from "./routes/profile";
 import Login from "./routes/login";
 import CreateAccount from "./routes/create-account";
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 import { useEffect, useState } from "react";
 import LoadingScreen from "./components/loading-screen";
@@ -37,6 +37,13 @@ const router = createBrowserRouter([
   },
 ]);
 
+const Wrapper = styled.div`
+height: 100%;
+display: flex;
+// justify-content : Wrapper로 감싸진 영역 전체가 center로 이동
+justify-content: center;
+`;
+
 const GlobalStyles = createGlobalStyle`
   ${reset};
   * {
@@ -45,7 +52,7 @@ const GlobalStyles = createGlobalStyle`
   body {
     background-color: black;
     color: white;
-    font-family: 'system-ui', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'system-ui', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; */
 }
 
   `;
@@ -64,10 +71,10 @@ function App() {
   }, [])
 
   return (
-    <>
+    <Wrapper>
       <GlobalStyles />
       {isLoading ? <LoadingScreen /> : <RouterProvider router={router} />}
-    </>
+    </Wrapper>
   );
 }
 
