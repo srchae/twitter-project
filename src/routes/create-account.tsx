@@ -1,5 +1,8 @@
+import { createUserWithEmailAndPassword, updateProfile } from "@firebase/auth";
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import styled from "styled-components";
+import { auth } from "../firebase";
 
 const Wrapper = styled.div`
 height: 100%;
@@ -14,12 +17,13 @@ const Form = styled.form`
 margin-top: 50px;
 display: flex;
 flex-direction: column;
-gap: 10px;
+align-items: center;
+gap: 20px;
 width: 100%;
 `;
 
 const Title = styled.h1`
-font-size: 42px;
+font-size: 40px;
 `;
 
 const Input = styled.input`
