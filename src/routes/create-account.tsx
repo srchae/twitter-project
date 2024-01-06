@@ -55,6 +55,8 @@ const Switcher = styled.span`
     }
 `;
 
+import GithubButton from "../components/github-btn";
+import { InputButton } from '../components/styled';
 
 export default function CreateAccount() {
   // 계정 생성을 시작할 때 상태값을 f -> t로 바꿀 것임
