@@ -1,48 +1,57 @@
 import { createUserWithEmailAndPassword, updateProfile } from "@firebase/auth";
+import { FirebaseError } from "@firebase/util";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
 import { auth } from "../firebase";
 
 const Wrapper = styled.div`
-height: 100%;
-display: flex;
-flex-direction: column;
-align-items: center;
-width: 420px;
-padding: 50px 0px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 420px;
+    padding: 50px 0px;
 `;
 
 const Form = styled.form`
-margin-top: 50px;
-display: flex;
-flex-direction: column;
-align-items: center;
-gap: 20px;
-width: 100%;
+    margin-top: 50px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
 `;
 
 const Title = styled.h1`
-font-size: 40px;
+    font-size: 40px;
 `;
 
 const Input = styled.input`
-padding: 10px 20px;
-border-radius: 50px;
-border: none;
-width: 100%;
-font-size: 16px;
-&[type="submit"] {
-cursor: pointer;
-&:hover {
-opacity: 0.8;
-}
-}
+    padding: 10px 20px;
+    border-radius: 50px;
+    border: none;
+    width: 100%;
+    font-size: 16px;
+    &[type="submit"] {
+    cursor: pointer;
+    &:hover {
+    opacity: 0.8;
+    }
+    }
 `;
 
 const Error = styled.span`
-font-weight: 600;
-color: tomato;
+    font-weight: 600;
+    color: tomato;
+`;
+
+const Switcher = styled.span`
+    margin-top: 20px,
+    a {
+        color: #1d9bf0;
+    }
 `;
 
 

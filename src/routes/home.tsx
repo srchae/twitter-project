@@ -15,6 +15,9 @@ export default function Home() {
             <PostTweetForm/>
             <Timeline/>
         </Wrapper>
+        <h1>
+        <button onClick={Logout}>logout!!!</button>
+        </h1>
     )
 
 }

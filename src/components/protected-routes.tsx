@@ -1,6 +1,6 @@
 import React from "react";
-import { auth } from "../firebase";
 import { Navigate } from "react-router";
+import { auth } from "../firebase";
 
 /* firebase에게 로그인한 사용자가 누구인지 물어보는 route component */
 export default function ProtectedRoutes({children} : {children:React.ReactNode}) {
