@@ -1,6 +1,11 @@
 # React + TypeScript + Vite
 ## npm run dev  !!
 
+## Dependencies
+- firebase: 10.1.0
+- react: 18.2.0
+- styled-components: 4.5.1
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
