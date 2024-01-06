@@ -3,6 +3,7 @@ import { FirebaseError } from "@firebase/util";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
+import { Error, Form, Input, Switcher, Title, Wrapper } from '../components/styled';
 import { auth } from "../firebase";
 
 const Wrapper = styled.div`
