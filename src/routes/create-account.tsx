@@ -3,46 +3,56 @@ import { useState } from "react";
 import styled from "styled-components";
 import { auth } from "../firebase";
 import { Navigate, useNavigate } from "react-router";
+import { FirebaseError } from "@firebase/util";
+import { Link } from "react-router-dom";
 
 const Wrapper = styled.div`
-height: 100%;
-display: flex;
-flex-direction: column;
-align-items: center;
-width: 420px;
-padding: 50px 0px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 420px;
+    padding: 50px 0px;
 `;
 
 const Form = styled.form`
-margin-top: 50px;
-display: flex;
-flex-direction: column;
-align-items: center;
-gap: 20px;
-width: 100%;
+    margin-top: 50px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
 `;
 
 const Title = styled.h1`
-font-size: 40px;
+    font-size: 40px;
 `;
 
 const Input = styled.input`
-padding: 10px 20px;
-border-radius: 50px;
-border: none;
-width: 100%;
-font-size: 16px;
-&[type="submit"] {
-cursor: pointer;
-&:hover {
-opacity: 0.8;
-}
-}
+    padding: 10px 20px;
+    border-radius: 50px;
+    border: none;
+    width: 100%;
+    font-size: 16px;
+    &[type="submit"] {
+    cursor: pointer;
+    &:hover {
+    opacity: 0.8;
+    }
+    }
 `;
 
 const Error = styled.span`
-font-weight: 600;
-color: tomato;
+    font-weight: 600;
+    color: tomato;
+`;
+
+const Switcher = styled.span`
+    margin-top: 20px,
+    a {
+        color: #1d9bf0;
+    }
 `;
 
 
@@ -74,7 +84,7 @@ export default function CreateAccount() {
     const onSubmit = async (e : React.FormEvent<HTMLFormElement>) => {
         // onSubmit 할 때 작동되는 이동 혹은 새로고침 막는 동작
         e.preventDefault();
-        
+        setError("");
         // 로딩 중이거나 혹은 필수값(name, email, password)이 빈 값일 경우에는 해당 함수를 일찍 종료
         if (isLoading || name === "" || email === "" || password === "") return;
         
@@ -101,6 +111,11 @@ export default function CreateAccount() {
 
         } catch (e) {
             // 에러 처리를 위해 남겨둔 부분입니둥
+            // FirebaseError: Firebase: Error (auth/email-already-in-use).
+            // console.log(e)
+            if(e instanceof FirebaseError) {
+                setError(e.message);
+            }
         } finally {
             setLoading(false);
         }
@@ -108,12 +123,15 @@ export default function CreateAccount() {
         }
     return <Wrapper>
         <Form onSubmit={onSubmit}>
-            <Title>Join X</Title>
+            <Title>Join to X</Title>
             <Input onChange={onChange} name="name" value={name} placeholder="name" type="text" required/>
             <Input onChange={onChange} name="email" value={email} placeholder="email" type="email" required/>
             <Input onChange={onChange} name="password" value={password} placeholder="password" type="password" required/>
             <Input type="submit" value={isLoading ? "Loading..." : "Submit"}/>
         </Form>
-        {error !== "" ? <Error>form을 올바르게 입력해주세요.</Error> : null}
+        {error !== "" ? <Error>Firebase: Error (auth/email-already-in-use).</Error> : null}
+        <Switcher>
+            Already have an account? <Link to="/login">Login to&rarr;</Link>
+        </Switcher>
     </Wrapper>
 }

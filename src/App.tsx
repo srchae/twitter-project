@@ -9,12 +9,14 @@ import reset from "styled-reset";
 import { useEffect, useState } from "react";
 import LoadingScreen from "./components/loading-screen";
 import { auth } from "./firebase";
+import ProtectedRoutes from "./components/protected-routes";
 
-// Layout이 먼저 렌더된 후 Home이 렌더
+// Layout이 먼저 렌더된 후 Home이 render
+// ProtectedRoutes의 children은 <Home/>과 <Profile/>이 될 수 있음
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: <ProtectedRoutes><Layout /></ProtectedRoutes>,
     children: [
       {
         path: "",
