@@ -35,6 +35,7 @@ export const Input = styled.input`
         opacity: 0.8;
         }
         }
+        
     `;
 
     
@@ -49,3 +50,20 @@ export const Switcher = styled.span`
             color: #1d9bf0;
         }
     `;
+
+export const InputButton = styled.input`
+        padding: 10px 20px;
+        border-radius: 50px;
+        border: none;
+        width: 100%;
+        font-size: 16px;
+        &[type="submit"] {
+        cursor: pointer;
+        &:hover {
+        opacity: 0.8;
+        }
+        background-color : #1d9bf0;
+        color: white;
+        }
+
+`

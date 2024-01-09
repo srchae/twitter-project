@@ -5,56 +5,8 @@ import { useNavigate } from "react-router";
 import { signInWithEmailAndPassword } from "@firebase/auth";
 import { auth } from "../firebase";
 import { Link } from "react-router-dom";
-
-const Wrapper = styled.div`
-height: 100%;
-display: flex;
-flex-direction: column;
-align-items: center;
-width: 420px;
-padding: 50px 0px;
-`;
-
-const Form = styled.form`
-margin-top: 50px;
-margin-bottom: 10px;
-display: flex;
-flex-direction: column;
-align-items: center;
-gap: 20px;
-width: 100%;
-`;
-
-const Title = styled.h1`
-font-size: 40px;
-`;
-
-const Input = styled.input`
-padding: 10px 20px;
-border-radius: 50px;
-border: none;
-width: 100%;
-font-size: 16px;
-&[type="submit"] {
-cursor: pointer;
-&:hover {
-opacity: 0.8;
-}
-}
-`;
-
-const Error = styled.span`
-font-weight: 600;
-color: tomato;
-`;
-
-const Switcher = styled.span`
-    margin-top: 20px,
-    a {
-        color: #1d9bf0;
-    }
-`;
-
+import { Error, Form, Input, InputButton, Switcher, Title, Wrapper } from "../components/styled";
+import GithubButton from "../components/github-btn";
 
 export default function Login() {
     const [isLoading, setLoading] = useState(false);
@@ -66,7 +18,7 @@ export default function Login() {
     const onChange = (e : React.ChangeEvent<HTMLInputElement>) => {
         const {target : { name, value }} = e;
         if (name === "email") {
-            setEmail(value);
+            setEmail(value); 
         } else if (name === "password") {
             setPassword(value);
         }
@@ -96,11 +48,12 @@ export default function Login() {
             <Title>Login to X</Title>
             <Input onChange={onChange} name="email" value={email} placeholder="email" type="email" required/>
             <Input onChange={onChange} name="password" value={password} placeholder="password" type="password" required/>
-            <Input type="submit" value={isLoading ? "Loading..." : "Submit"}/>
+            <InputButton type="submit" value={isLoading ? "Loading..." : "Login"}/>
         </Form>
         {error !== "" ? <Error>Firebase: Error (auth/email-already-in-use).</Error> : null}
         <Switcher>
-            Don't have an account?<Link to="/create-account">Create One&rarr;</Link>
+            Don't have an account?&nbsp;<Link to="/create-account">Create One&rarr;</Link>
         </Switcher>
+        <GithubButton/>
     </Wrapper>
 }

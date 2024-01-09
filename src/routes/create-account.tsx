@@ -5,7 +5,8 @@ import { auth } from "../firebase";
 import { Navigate, useNavigate } from "react-router";
 import { FirebaseError } from "@firebase/util";
 import { Link } from "react-router-dom";
-import { Wrapper, Form, Title, Input, Error, Switcher } from '../components/styled';
+import { Wrapper, Form, Title, Input, Error, Switcher, Button, InputButton } from '../components/styled';
+import GithubButton from "../components/github-btn";
 
 export default function CreateAccount() {
     // 계정 생성을 시작할 때 상태값을 f -> t로 바꿀 것임
@@ -78,11 +79,12 @@ export default function CreateAccount() {
             <Input onChange={onChange} name="name" value={name} placeholder="name" type="text" required/>
             <Input onChange={onChange} name="email" value={email} placeholder="email" type="email" required/>
             <Input onChange={onChange} name="password" value={password} placeholder="password" type="password" required/>
-            <Input type="submit" value={isLoading ? "Loading..." : "Submit"}/>
+            <InputButton type="submit" value={isLoading ? "Loading..." : "Submit"}/>
         </Form>
         {error !== "" ? <Error>Firebase: Error (auth/email-already-in-use).</Error> : null}
         <Switcher>
-            Already have an account? <Link to="/login">Login to&rarr;</Link>
+            Already have an account?&nbsp;<Link to="/login">Login to&rarr;</Link>
         </Switcher>
+        <GithubButton/>
     </Wrapper>
 }
