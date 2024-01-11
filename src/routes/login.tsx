@@ -30,17 +30,21 @@ font-size: 40px;
 `;
 
 const Input = styled.input`
-padding: 10px 20px;
-border-radius: 50px;
-border: none;
-width: 100%;
-font-size: 16px;
-&[type="submit"] {
-cursor: pointer;
-&:hover {
-opacity: 0.8;
-}
-}
+    padding: 10px 20px;
+    border-radius: 50px;
+    border: none;
+    width: 100%;
+    font-size: 16px;
+    &[type="submit"] {
+    cursor: pointer;
+    &:hover {
+    opacity: 0.8;
+    }
+    }
+`;
+
+const InputStyle = styled.input`
+    background-color: #1d9bf0;
 `;
 
 const Error = styled.span`
@@ -51,9 +55,10 @@ color: tomato;
 const Switcher = styled.span`
     margin-top: 20px,
     a {
-        color: #1d9bf0;
+        color : #1d9bf0;
     }
 `;
+
 
 
 export default function Login() {
