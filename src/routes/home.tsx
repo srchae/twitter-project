@@ -1,3 +1,7 @@
+import PostTweetForm from "../components/post-tweet-form";
+import { auth } from "../firebase"
+
+export default function Home() {
 import { useNavigate } from "react-router";
 import { auth } from "../firebase"
 
@@ -8,9 +12,9 @@ export default function Home() {
         navigate("/login");
     }
     return (
-        <h1>
-        <button onClick={Logout}>logout!!!</button>
-        </h1>
+        <>
+            <PostTweetForm/>
+        </>
     )
 
 }
