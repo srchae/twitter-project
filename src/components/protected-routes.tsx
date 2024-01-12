@@ -2,6 +2,7 @@ import React from "react";
 import { auth } from "../firebase";
 import { Navigate } from "react-router";
 
+/* firebase에게 로그인한 사용자가 누구인지 물어보는 route component */
 export default function ProtectedRoutes({children} : {children:React.ReactNode}) {
     /* firebase(auth)에 user 정보를 요청 */
     // currentUser : user의 로그인 여부를 알려줌
