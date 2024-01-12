@@ -60,7 +60,6 @@ export default function PostTweetForm() {
         <Form>
             <TextArea />
             <AttachFileButton>Add photo</AttachFileButton>
-            {/* 이미지 파일이라면 확장자는 상관 안 함 */}
             <AttachFileInput></AttachFileInput>
             <SubmitBtn />         
         </Form>
