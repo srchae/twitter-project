@@ -13,7 +13,6 @@ export default function Layout() {
     return (
         <>
         <Wrapper>
-            <h2>layout!</h2>
             <Outlet/>
         </Wrapper>
         </>
