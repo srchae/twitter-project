@@ -2,7 +2,6 @@ import { signInWithEmailAndPassword } from "@firebase/auth";
 import { FirebaseError } from "@firebase/util";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { auth } from "../firebase";
 
@@ -107,7 +106,7 @@ export default function Login() {
         </Form>
         {error !== "" ? <Error>Firebase: Error (auth/email-already-in-use).</Error> : null}
         <Switcher>
-            Don't have an account?&nbsp;<Link to="/create-account">Create One&rarr;</Link>
+            Don't have an account?&nbsp;<StyledLink to="/create-account">Create One&rarr;</StyledLink>
         </Switcher>
         <GithubButton/>
     </Wrapper>
