@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
@@ -65,5 +66,8 @@ export const InputButton = styled.input`
         background-color : #1d9bf0;
         color: white;
         }
+`;
 
-`
+export const StyledLink = styled(Link)`
+    color : #1d9bf0
+`;
