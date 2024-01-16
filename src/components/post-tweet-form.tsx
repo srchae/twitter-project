@@ -58,9 +58,10 @@ const SubmitBtn = styled.input`
 export default function PostTweetForm() {
     return (
         <Form>
-            <TextArea />
-            <AttachFileButton>Add photo</AttachFileButton>
-            <AttachFileInput></AttachFileInput>
+            <TextArea placeholder="What Is Happening?"/>
+            <AttachFileButton htmlFor="files">Add photo</AttachFileButton>
+            {/* 해당 input이 이미지면 확장자 상관없음 */}
+            <AttachFileInput id="files" accept="image/*"></AttachFileInput>
             <SubmitBtn />         
         </Form>
     )
