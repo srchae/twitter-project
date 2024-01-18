@@ -1,11 +1,9 @@
 import { createUserWithEmailAndPassword, updateProfile } from "@firebase/auth";
 import { useState } from "react";
-import styled from "styled-components";
 import { auth } from "../firebase";
-import { Navigate, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { FirebaseError } from "@firebase/util";
-import { Link } from "react-router-dom";
-import { Wrapper, Form, Title, Input, Error, Switcher, InputButton, StyledLink } from '../components/styled';
+import { Wrapper, Form, Title, Input, Error, Switcher, InputButton, StyledLink } from '../components/styled/styled';
 import GithubButton from "../components/github-btn";
 
 export default function CreateAccount() {
