@@ -21,3 +21,7 @@ export const auth = getAuth(app);
 // 데이터베이스와 스토리지에 대한 엑세스 권한 얻기
 export const storage = getStorage(app);
 export const db = getFirestore(app);
+
+// 데이터베이스와 스토리지에 대한 엑세스 권한 얻기
+export const storage = getStorage(app);
+export const db = getFirestore(app);
