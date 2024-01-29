@@ -20,6 +20,7 @@ export const TextArea = styled.textarea`
   &::placeholder {
     font-size: 16px;
   }
+  // TextArea 영역을 잡았을 때의 스타일
   &:focus {
     outline: none;
     border-color: #1d9bf0;
