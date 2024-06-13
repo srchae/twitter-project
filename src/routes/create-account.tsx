@@ -56,9 +56,18 @@ const Switcher = styled.span`
 `;
 
 import GithubButton from "../components/github-btn";
-import { InputButton, StyledLink } from '../components/styled';
+import {
+  InputButton,
+  StyledLink
+} from "../components/styled/styled";
 
 export default function CreateAccount() {
+  // 계정 생성을 시작할 때 상태값을 f -> t로 바꿀 것임
+  const [isLoading, setLoading] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   // 계정 생성을 시작할 때 상태값을 f -> t로 바꿀 것임
   const [isLoading, setLoading] = useState(false);
   const [name, setName] = useState("");
@@ -112,7 +121,66 @@ export default function CreateAccount() {
       // 2. 사용자 프로필 업데이트
       // displayName은 name의 별칭으로 사용해줌 여기서 name은 useState에서 선언해준 name임
       await updateProfile(credential.user, { displayName: name });
+      // 2. 사용자 프로필 업데이트
+      // displayName은 name의 별칭으로 사용해줌 여기서 name은 useState에서 선언해준 name임
+      await updateProfile(credential.user, { displayName: name });
 
+      // 해당 코드를 실행 후 사용자를 home 화면으로 이동시키기 위해 Navigate 함수 사용
+      // 즉, 모든 인자와 객체가 유효한 값을 띄고 있을 때 try에서 navigate(home)로 진입 후 try-catch문 종료 !
+      navigate("/");
+    } catch (e) {
+      // 에러 처리를 위해 남겨둔 부분입니둥
+      // FirebaseError: Firebase: Error (auth/email-already-in-use).
+      // console.log(e)
+      if (e instanceof FirebaseError) {
+        setError(e.message);
+      }
+    } finally {
+      setLoading(false);
+    }
+    // console.log(name, email, password);
+  };
+  return (
+    <Wrapper>
+      <Form onSubmit={onSubmit}>
+        <Title>Join to X</Title>
+        <Input
+          onChange={onChange}
+          name="name"
+          value={name}
+          placeholder="name"
+          type="text"
+          required
+        />
+        <Input
+          onChange={onChange}
+          name="email"
+          value={email}
+          placeholder="email"
+          type="email"
+          required
+        />
+        <Input
+          onChange={onChange}
+          name="password"
+          value={password}
+          placeholder="password"
+          type="password"
+          required
+        />
+        <InputButton
+          type="submit"
+          value={isLoading ? "Loading..." : "Submit"}
+        />
+      </Form>
+      {error !== "" ? (
+        <Error>Firebase: Error (auth/email-already-in-use).</Error>
+      ) : null}
+      <Switcher>
+        Already have an account?&nbsp;
+        <StyledLink to="/login">Login to&rarr;</StyledLink>
+      </Switcher>
+      <GithubButton />
       // 해당 코드를 실행 후 사용자를 home 화면으로 이동시키기 위해 Navigate 함수 사용
       // 즉, 모든 인자와 객체가 유효한 값을 띄고 있을 때 try에서 navigate(home)로 진입 후 try-catch문 종료 !
       navigate("/");

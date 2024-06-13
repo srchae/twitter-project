@@ -74,7 +74,10 @@ export default function PostTweetForm() {
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTweet(e.target.value);
   };
+  };
 
+  const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { files } = e?.target;
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e?.target;
     if (files && files.length === 1) {
@@ -82,8 +85,12 @@ export default function PostTweetForm() {
     }
   };
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  };
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const user = auth.currentUser;
+    console.log(user);
+    if (!user || isLoading || tweet === "" || tweet.length > 180) return;
     console.log(user);
     if (!user || isLoading || tweet === "" || tweet.length > 180) return;
     try {
@@ -91,15 +98,19 @@ export default function PostTweetForm() {
       // addDoc : Firebase SDK에 포함된 document 생성 함수
       // collection 함수의 파라미터에는 firebase 인스턴스와 collection 네임을 필요로 함
       // 추가하고자 하는 데이터를 넣어줌
+      // 추가하고자 하는 데이터를 넣어줌
 
+      /* 1. Document 생성 */
       /* 1. Document 생성 */
       const doc = await addDoc(collection(db, "tweets"), {
         tweet,
         createdAt: Date.now(),
         userName: user.displayName || "Anonymous",
         userId: user.uid,
+        userId: user.uid,
       });
 
+      // file이 들어왔는지..
       // file이 들어왔는지..
       // ref 내 인자를 firebase.tsx에서 불러온 storage 객체와 업로드되는 파일을 저장할 URL 선택
       /* 2. 이미지 첨부 시 해당 경로로 저장 */
@@ -108,7 +119,12 @@ export default function PostTweetForm() {
           storage,
           `tweets/${user.uid}-${user.displayName}/${doc.id}`
         );
+        const locationRef = ref(
+          storage,
+          `tweets/${user.uid}-${user.displayName}/${doc.id}`
+        );
         const result = await uploadBytes(locationRef, file);
+        // 업로드한 사진의 URL
         // 업로드한 사진의 URL
         // getDownloadURL은 string을 return하는 promise 함수
         const url = getDownloadURL(result.ref);

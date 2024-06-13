@@ -44,10 +44,10 @@ const router = createBrowserRouter([
 ]);
 
 const Wrapper = styled.div`
-height: 100%;
-display: flex;
-// justify-content : Wrapper로 감싸진 영역 전체가 center로 이동
-justify-content: center;
+  height: 100%;
+  display: flex;
+  // justify-content : Wrapper로 감싸진 영역 전체가 center로 이동
+  justify-content: center;
 `;
 
 const GlobalStyles = createGlobalStyle`
@@ -58,7 +58,7 @@ const GlobalStyles = createGlobalStyle`
   body {
     background-color: black;
     color: white;
-    font-family: 'system-ui', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; */
+    font-family: 'system-ui', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
   `;
@@ -67,14 +67,14 @@ function App() {
   const [isLoading, setLoading] = useState(true);
 
   // 파이어베이스가 준비될 때까지 기다림
-  const init = async() => {
-    await auth.authStateReady(); 
+  const init = async () => {
+    await auth.authStateReady();
     setTimeout(() => setLoading(false), 2000);
-  }
+  };
 
-  useEffect(()=> {
+  useEffect(() => {
     init();
-  }, [])
+  }, []);
 
   return (
     <Wrapper>
