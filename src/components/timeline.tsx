@@ -1,40 +1,77 @@
-import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import { Unsubscribe } from "firebase/auth";
+import {
+  collection,
+  /*  getDocs, */
+  limit,
+  onSnapshot,
+  orderBy,
+  query,
+} from "firebase/firestore";
 import { useEffect, useState } from "react";
-import styled from "styled-components";
+import { styled } from "styled-components";
 import { db } from "../firebase";
+import Tweet from "./tweet";
 
 export interface ITweet {
-    // 해당 필드는 데이터베이스를 참고
-    photo: string,
-    tweet: string,
-    userId: string,
-    username: string,
-    createAt: number,
+  id: string;
+  photo?: string;
+  tweet: string;
+  userId: string;
+  userName: string;
+  createdAt: number;
 }
 
 const Wrapper = styled.div`
-    
-`
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
 export default function Timeline() {
-    const [tweets, setTweet] = useState<ITweet[]>([]);
-    const fetchTweets = async() => {
-        // collection을 대상으로 query(firebase 내장 함수) 생성
-        const tweetsQuery = query(
-            collection(db, "tweets"),
-            orderBy("createAt", "desc"),
-        );
+  const [tweets, setTweet] = useState<ITweet[]>([]);
 
-        // 문서 생성하기 (document)
-        const snapshot = await getDocs(tweetsQuery);
-        
-        // ITweet을 만족하는 모든 데이터 추출
-        const tweets = snapshot.docs.map((doc) => console.log(doc.data()));
-
+  useEffect(() => {
+    let unsubscribe: Unsubscribe | null = null;
+    const fetchTweets = async () => {
+      const tweetsQuery = query(
+        collection(db, "tweets"),
+        orderBy("createdAt", "desc"),
+        limit(25)
+      );
+      /** unsubscribe 변수에 구독 취소 함수를 저장 */
+      /** timeline component mount -> subscibe
+       *                     unmount -> unsubscribe
+       */
+      unsubscribe = await onSnapshot(tweetsQuery, (snapshot) => {
+        const tweets = snapshot.docs.map((doc) => {
+          const { tweet, createdAt, userId, userName, photo } = doc.data();
+          return {
+            tweet,
+            createdAt,
+            userId,
+            userName,
+            photo,
+            id: doc.id,
+          };
+        });
+        setTweet(tweets);
+      });
     };
-    useEffect(() => {
-        fetchTweets();
-    }, []);
-    return <Wrapper>
-        {JSON.stringify(tweets)}
-    </Wrapper>;
+    fetchTweets();
+    /** clean-up */
+    return () => {
+      unsubscribe && unsubscribe();
+    };
+  }, []);
+  return (
+    <Wrapper>
+      {tweets.map((tweet) => (
+        <Tweet key={tweet.id} {...tweet} />
+      ))}
+    </Wrapper>
+  );
 }
