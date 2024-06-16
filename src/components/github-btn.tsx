@@ -1,8 +1,7 @@
 import { GithubAuthProvider, signInWithPopup } from "@firebase/auth";
-import {styled} from "styled-components";
-import { auth } from "../firebase";
-import { error } from "console";
 import { useNavigate } from "react-router";
+import { styled } from "styled-components";
+import { auth } from "../firebase";
 
 const Button = styled.span`
   margin-top: 50px;
@@ -21,27 +20,26 @@ const Button = styled.span`
   cursor: pointer;
 `;
 
-const Logo = styled.img`
+export const Logo = styled.img`
   height: 25px;
 `;
 
 export default function GithubButton() {
-    const navigate = useNavigate();
-    const onClick = async() => {
-        try {
-            const provider = new GithubAuthProvider;
-            await signInWithPopup(auth, provider);
-            navigate("/");
-        
-        }catch (error) {
-            console.error(error);
-        }
+  const navigate = useNavigate();
+
+  const onClick = async () => {
+    try {
+      const provider = new GithubAuthProvider();
+      await signInWithPopup(auth, provider);
+      navigate("/");
+    } catch (error) {
+      console.error(error);
     }
-    return (
-        <Button onClick={onClick}>
-            <Logo src="github-logo.svg"/>
-            Continue With Github
-        </Button>
-    );
-    
+  };
+  return (
+    <Button onClick={onClick}>
+      <Logo src="github-logo.svg" />
+      Continue With Github
+    </Button>
+  );
 }
